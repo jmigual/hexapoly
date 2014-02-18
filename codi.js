@@ -143,53 +143,25 @@ function newpos (jugador){
 
 //**********
 // Intel.ligencies (artificials o no)
-function volsedificar1(){
-	if (tauler[jugadors[1].pos].propietari == 1) return true;
-	return false;
-};
-function volsedificar2(){
-	if (tauler[jugadors[2].pos].propietari == 2) return true;
-	return false;
-};
-function volsedificar3(){
-	if (tauler[jugadors[3].pos].propietari == 3) return true;
-	return false;
-};
-function volsedificar4(){
-	if (tauler[jugadors[4].pos].propietari == 4) return true;
-	return false;
-};
-function volsedificar5(){
-	if (tauler[jugadors[5].pos].propietari == 5) return true;
-	return false;
-};
-function volsedificar6(){
-	if (tauler[jugadors[6].pos].propietari == 6) return true;
-	return false;
-};
-var volsedificar = [
-	volsedificar1,
-	volsedificar2,
-	volsedificar3,
-	volsedificar4,
-	volsedificar5,
-	volsedificar6
-]
 
-function volscomprar1(){ return confirm('Vols comprar la casella ' + jugadors[1].pos + ' per ' + tauler[jugadors[1].pos].preu + '?')};
-function volscomprar2(){ return true};
-function volscomprar3(){ return true};
-function volscomprar4(){ return true};
-function volscomprar5(){ return true};
-function volscomprar6(){ return true};
-var volscomprar = [
-	volscomprar1,
-	volscomprar2,
-	volscomprar3,
-	volscomprar4,
-	volscomprar5,
-	volscomprar6
-]
+//Funcions per les inteligencies per construir
+var volsedificar = new Array;
+volsedificar[1] = function () { return true };
+volsedificar[2] = function () { return true };
+volsedificar[3] = function () { return true };
+volsedificar[4] = function () { return true };
+volsedificar[5] = function () { return true };
+volsedificar[6] = function () { return true };
+
+
+//Funcions per les inteligencies artificials per comprar
+var volscomprar = new Array;
+volscomprar[1] = function () { return confirm('Vols comprar la casella ' + jugadors[1].pos + ' per ' + tauler[jugadors[1].pos].preu + '?') };
+volscomprar[2] = function () { return true };
+volscomprar[3] = function () { return true };
+volscomprar[4] = function () { return true };
+volscomprar[5] = function () { return true };
+volscomprar[6] = function () { return true };
 
 //***********
 // Totes les propietats del jugador "jugador" passen a ser del jugador 0
@@ -243,7 +215,7 @@ function tipuscasella(jugador){
 	if (tauler[casella].tipus == 'grau' || tauler[casella].tipus == 'uni' || tauler[casella].tipus == 'daus'){
 		if (tauler[casella].propietari == 0 ){
 			// Possibilitat de comprar
-			if ((jugadors[jugador].mon >= tauler[casella].preu) && volscomprar[jugador]) {
+			if ((jugadors[jugador].mon >= tauler[casella].preu) && volscomprar[jugador]()) {
 				incrementa (- tauler[casella].preu,jugador);
 				tauler[casella].propietari = jugador;
 				actualitzapropietats(jugador);
@@ -295,13 +267,13 @@ function edificar(jugador){
 	for (var i = 1; i < ncaselles; i += 4){
 		if (tauler[i].propietari == jugador && tauler[i+2].propietari == jugador) {
 			if (tauler[i].level == 0 && jugadors[jugador].mon >= (Math.floor(i/16) + 1)*60
-				&& volsedificar[jugador]) {
+				&& volsedificar[jugador]()) {
 				incrementa(- (Math.floor(i/16) + 1)*60, jugador);
 				++tauler[i].level;
 				shaedificat = true;
 			}
 			if (tauler[i+2].level == 0 && jugadors[jugador].mon >= (Math.floor(i/16) + 1)*60
-				&& volsedificar[jugador]) {
+				&& volsedificar[jugador]()) {
 				incrementa(- (Math.floor(i/16) + 1)*60, jugador);
 				++tauler[i+2].level;
 				shaedificat = true;
