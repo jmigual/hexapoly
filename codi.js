@@ -14,7 +14,9 @@ function numero() {
  	    	for (var i = 1; i <= njugadors; ++i)  {
  	    		txt += '<td><h1>Jugador ' + i + '</h1><br>Posicio:<div id="Pos' + i + '"">0</div>';
  	    		txt += 'Diners:<div id="Mon' + i + '"">2000</div>';
- 	    		txt += '<br>Cases(nivell):<div id=Cases' + i +'></div>'
+ 	    		txt += '<br>Graus(nivell): <div id=Graus' + i +'></div>';
+ 	    		txt += '<br>Unis: <div id=Unis' + i +'></div>';
+ 	    		txt += '<br>Companyies de ferrocarrils: <div id=Daus' + i +'></div>';
  	    		txt += '</td>';
  	    	}
  	    	txt += '</tr></table>';
@@ -31,15 +33,27 @@ function numero() {
 function monopoly(){
 
 var jugadors = new Array();
-for (var i = 0; i <= njugadors; ++i) jugadors.push({pos: 0, mon: 2000, own: new Array(), jail: false});
+for (var i = 0; i <= njugadors; ++i) jugadors.push({pos: 0, mon: 600, jail: false,
+	missturns: 0, graus: new Array(), unis: new Array(), daus: new Array()});
 
 // actualitza l'array own del jugador
 function actualitzapropietats(jugador){
-	jugadors[jugador].own = new Array();
-	for (var i = 0; i < 48; ++i) {
+	jugadors[jugador].graus = new Array(0);
+	for (var i=1; i<ncaselles; i+=2) {
 		if (tauler[i].propietari == jugador){
-			jugadors[jugador].own.push({lloc: i, lvl: tauler[i].level})
+			jugadors[jugador].graus.push({lloc: i, lvl: tauler[i].level});
 		}
+	}
+	jugadors[jugador].unis = new Array(0);
+	for (var i=4; i<ncaselles; i+=8) {
+		if (tauler[i].propietari == jugador){
+			jugadors[jugador].unis.push(i);
+		}
+	}
+	jugadors[jugador].daus = new Array(0);
+	for (var i=14; i<35; i+=20) {
+		if (tauler[i].propietari == jugador){
+			jugadors[jugador].daus.push(i);		}
 	}
 }
 
@@ -61,53 +75,53 @@ function Casella(tipus, propietari, nom, preu, normal, ucasa, dcasa, tcasa, qcas
 
 var tauler = new Array();
 tauler[0] = new Casella('especial',0,'Sortida',0,0,0,0,0,0,0,0);
-tauler[1] = new Casella('grau',0,'Magisteri',60,0,0,0,0,0,0,0);
+tauler[1] = new Casella('grau',0,'Magisteri',10,4,8,16,32,64,128,0);
 tauler[2] = new Casella('impostos',0,'Taxa universitària',0,0,0,0,0,0,0,0);
-tauler[3] = new Casella('grau',0,'Belles arts',70,0,0,0,0,0,0,0);
-tauler[4] = new Casella('uni',0,'UPF',200,0,0,0,0,0,0,0);
-tauler[5] = new Casella('grau',0,'Sociologia',90,0,0,0,0,0,0,0);
+tauler[3] = new Casella('grau',0,'Belles arts',12,5,10,20,40,80,160,0);
+tauler[4] = new Casella('uni',0,'UPF',30,0,0,0,0,0,0,0);
+tauler[5] = new Casella('grau',0,'Sociologia',14,7,14,28,56,112,224,0);
 tauler[6] = new Casella('festes',0,'Festes',0,0,0,0,0,0,0,0);
-tauler[7] = new Casella('grau',0,'Psicologia',100,0,0,0,0,0,0,0);
+tauler[7] = new Casella('grau',0,'Psicologia',16,7,14,28,56,112,224,0);
 tauler[8] = new Casella('especial',0,'Any sabàtic',0,0,0,0,0,0,0,0);
-tauler[9] = new Casella('grau',0,'Filologia',120,0,0,0,0,0,0,0);
+tauler[9] = new Casella('grau',0,'Filologia',120,12,120,240,360,480,600,0);
 tauler[10] = new Casella('examens',0,'Exàmens',0,0,0,0,0,0,0,0);
-tauler[11] = new Casella('grau',0,'Filosofia',120,0,0,0,0,0,0,0);
+tauler[11] = new Casella('grau',0,'Filosofia',120,12,120,240,360,480,600,0);
 tauler[12] = new Casella('uni',0,'UB',200,0,0,0,0,0,0,0);
-tauler[13] = new Casella('grau',0,'Arqueologia',140,0,0,0,0,0,0,0);
+tauler[13] = new Casella('grau',0,'Arqueologia',140,14,140,280,420,560,700,0);
 tauler[14] = new Casella('daus',0,'Ferrocarrils de la Generalitat',0,0,0,0,0,0,0,0);
-tauler[15] = new Casella('grau',0,'Història',140,0,0,0,0,0,0,0);
+tauler[15] = new Casella('grau',0,'Història',140,14,140,280,420,560,700,0);
 tauler[16] = new Casella('especial',0,'Presó (només visites)',0,0,0,0,0,0,0,0);
-tauler[17] = new Casella('grau',0,'Enginyeria en telecomunicacions',160,0,0,0,0,0,0,0);
+tauler[17] = new Casella('grau',0,'Enginyeria en telecomunicacions',160,16,160,320,480,640,800,0);
 tauler[18] = new Casella('festes',0,'Festes',0,0,0,0,0,0,0,0);
-tauler[19] = new Casella('grau',0,'Enginyeria informàtica',170,0,0,0,0,0,0,0);
+tauler[19] = new Casella('grau',0,'Enginyeria informàtica',170,17,170,340,510,680,850,0);
 tauler[20] = new Casella('uni',0,'UAB',200,0,0,0,0,0,0,0);
-tauler[21] = new Casella('grau',0,'Enginyeria industrial',180,0,0,0,0,0,0,0);
+tauler[21] = new Casella('grau',0,'Enginyeria industrial',180,18,180,360,540,720,900,0);
 tauler[22] = new Casella('examens',0,'Exàmens',0,0,0,0,0,0,0,0);
-tauler[23] = new Casella('grau',0,'Enginyeria aeronàutica',190,0,0,0,0,0,0,0);
+tauler[23] = new Casella('grau',0,'Enginyeria aeronàutica',190,19,190,380,570,760,950,0);
 tauler[24] = new Casella('especial',0,'Aeroport',0,0,0,0,0,0,0,0);
-tauler[25] = new Casella('grau',0,'Dret',211,0,0,0,0,0,0,0);
+tauler[25] = new Casella('grau',0,'Dret',211,21,211,422,633,844,1055,0);
 tauler[26] = new Casella('festes',0,'Festes',0,0,0,0,0,0,0,0);
-tauler[27] = new Casella('grau',0,'Periodisme',222,0,0,0,0,0,0,0);
+tauler[27] = new Casella('grau',0,'Periodisme',222,22,222,444,666,888,1110,0);
 tauler[28] = new Casella('uni',0,'URV',200,0,0,0,0,0,0,0);
-tauler[29] = new Casella('grau',0,'ADE',233,0,0,0,0,0,0,0);
+tauler[29] = new Casella('grau',0,'ADE',233,23,233,466,699,932,1165,0);
 tauler[30] = new Casella('examens',0,'Exàmens',0,0,0,0,0,0,0,0);
-tauler[31] = new Casella('grau',0,'Economia',245,0,0,0,0,0,0,0);
+tauler[31] = new Casella('grau',0,'Economia',245,24,245,490,735,980,1225,0);
 tauler[32] = new Casella('especial',0,'Corrupció',0,0,0,0,0,0,0,0);
-tauler[33] = new Casella('grau',0,'Geologia',250,0,0,0,0,0,0,0);
+tauler[33] = new Casella('grau',0,'Geologia',250,25,250,500,750,1000,1250,0);
 tauler[34] = new Casella('daus',0,'RENFE',0,0,0,0,0,0,0,0);
-tauler[35] = new Casella('grau',0,'Química',270,0,0,0,0,0,0,0);
+tauler[35] = new Casella('grau',0,'Química',270,27,270,540,810,1080,1350,0);
 tauler[36] = new Casella('uni',0,'UdLl',200,0,0,0,0,0,0,0);
-tauler[37] = new Casella('grau',0,'Biologia',280,0,0,0,0,0,0,0);
+tauler[37] = new Casella('grau',0,'Biologia',280,28,280,560,840,1120,1400,0);
 tauler[38] = new Casella('festes',0,'Festes',0,0,0,0,0,0,0,0);
-tauler[39] = new Casella('grau',0,'Medicina',300,0,0,0,0,0,0,0);
+tauler[39] = new Casella('grau',0,'Medicina',300,30,300,600,900,1200,1500,0);
 tauler[40] = new Casella('especial',0,'Vés a la presó',0,0,0,0,0,0,0,0);
-tauler[41] = new Casella('grau',0,'Matemàtiques',350,0,0,0,0,0,0,0);
+tauler[41] = new Casella('grau',0,'Matemàtiques',350,35,350,700,1050,1400,1750,0);
 tauler[42] = new Casella('examens',0,'Exàmens',0,0,0,0,0,0,0,0);
-tauler[43] = new Casella('grau',0,'Física',350,0,0,0,0,0,0,0);
+tauler[43] = new Casella('grau',0,'Física',350,35,350,700,1050,1400,1750,0);
 tauler[44] = new Casella('uni',0,'UdG',200,0,0,0,0,0,0,0);
-tauler[45] = new Casella('grau',0,'Arquitectura',375,0,0,0,0,0,0,0);
+tauler[45] = new Casella('grau',0,'Arquitectura',375,37.5,375,750,1125,1500,1875,0);
 tauler[46] = new Casella('impostos',0,'Compra de material',0,0,0,0,0,0,0,0);
-tauler[47] = new Casella('grau',0,'Enginyeria interdisciplinària',400,0,0,0,0,0,0,0);
+tauler[47] = new Casella('grau',0,'Enginyeria interdisciplinària',400,40,400,800,1200,1600,2000,0);
 
 //************
 // Tira els daus, mou el jugador i avisa si hi ha dobles
@@ -115,55 +129,78 @@ function newpos (jugador){
 	d1 = Math.floor((Math.random()*6)+1);
 	d2 = Math.floor((Math.random()*6)+1);
 	daus = d1 + d2;
-	jugadors[jugador].pos += daus;
-	if (jugadors[jugador].pos >= ncaselles){
-		jugadors[jugador].pos -= ncaselles;
-		jugadors[jugador].mon += 200;
-	}
 	if (d1 == d2) dobles = true;
 	else dobles = false;
+	if (!jugadors[jugador].jail || dobles){
+		jugadors[jugador].pos += daus;
+		jugadors[jugador].jail = false;
+	}
+	if (jugadors[jugador].pos >= ncaselles){
+		jugadors[jugador].pos -= ncaselles;
+		jugadors[jugador].mon += 60;
+	}
 }
 
 //**********
 // Intel.ligencies (artificials o no)
-function volsedificar1(){ return true};
-function volsedificar2(){ return true};
-function volsedificar3(){ return true};
-function volsedificar4(){ return true};
-function volsedificar5(){ return true};
-function volsedificar6(){ return true};
-var volsedificar = new Array();
-volsedificar[1] = volsedificar1();
-volsedificar[2] = volsedificar2();
-volsedificar[3] = volsedificar3();
-volsedificar[4] = volsedificar4();
-volsedificar[5] = volsedificar5();
-volsedificar[6] = volsedificar6();
+function volsedificar1(){
+	if (tauler[jugadors[1].pos].propietari == 1) return true;
+	return false;
+};
+function volsedificar2(){
+	if (tauler[jugadors[2].pos].propietari == 2) return true;
+	return false;
+};
+function volsedificar3(){
+	if (tauler[jugadors[3].pos].propietari == 3) return true;
+	return false;
+};
+function volsedificar4(){
+	if (tauler[jugadors[4].pos].propietari == 4) return true;
+	return false;
+};
+function volsedificar5(){
+	if (tauler[jugadors[5].pos].propietari == 5) return true;
+	return false;
+};
+function volsedificar6(){
+	if (tauler[jugadors[6].pos].propietari == 6) return true;
+	return false;
+};
+var volsedificar = [
+	volsedificar1,
+	volsedificar2,
+	volsedificar3,
+	volsedificar4,
+	volsedificar5,
+	volsedificar6
+]
 
-function volscomprar1(){ return true};
+function volscomprar1(){ return confirm('Vols comprar la casella ' + jugadors[1].pos + ' per ' + tauler[jugadors[1].pos].preu + '?')};
 function volscomprar2(){ return true};
 function volscomprar3(){ return true};
 function volscomprar4(){ return true};
 function volscomprar5(){ return true};
 function volscomprar6(){ return true};
-var volscomprar = new Array();
-volscomprar[1] = volscomprar1();
-volscomprar[2] = volscomprar2();
-volscomprar[3] = volscomprar3();
-volscomprar[4] = volscomprar4();
-volscomprar[5] = volscomprar5();
-volscomprar[6] = volscomprar6();
+var volscomprar = [
+	volscomprar1,
+	volscomprar2,
+	volscomprar3,
+	volscomprar4,
+	volscomprar5,
+	volscomprar6
+]
 
 //***********
 // Totes les propietats del jugador "jugador" passen a ser del jugador 0
 function bancarrota(jugador){
-	for (var i=0; i<40; i++){
+	for (var i=0; i<ncaselles; i++){
 		if (tauler[i].propietari == jugador) {
 			tauler[i].propietari = 0;
-			tauler[i].level = 0;
+			// tauler[i].level = 0; // desactivat: la propietat conserva les cases!
 		}
 	}
-	jugadors[jugador].own = new Array(0);
+	actualitzapropietats(jugador);
 }
 
 // Suma una quantitat de diners a un jugador
@@ -176,6 +213,7 @@ function incrementa(quantitat, jugador){
 function transferencia(quantitat, jugador1, jugador2){
 	incrementa(quantitat, jugador1);
 	incrementa(- quantitat, jugador2);
+	iva += 0.21*quantitat;
 }
 
 // Retorna la taxa a pagar en una casella de uni
@@ -191,8 +229,16 @@ function taxadaus(){
 	return 4;
 }
 
+// accions caselles festes i examens, de moment moviments random endavant o enrere
+function festes(jugador){
+	jugadors[jugador].pos += Math.floor(Math.random()*11-5);
+	tipuscasella(jugador);
+}
+function examens(jugador){ festes(jugador);}
+
 // Accio especial segons la casella on ha caigut el jugador
-function tipuscasella(casella,jugador){
+function tipuscasella(jugador){
+	var casella = jugadors[jugador].pos;
 	//casella normal
 	if (tauler[casella].tipus == 'grau' || tauler[casella].tipus == 'uni' || tauler[casella].tipus == 'daus'){
 		if (tauler[casella].propietari == 0 ){
@@ -219,32 +265,46 @@ function tipuscasella(casella,jugador){
 			}
 		}
 	}
-	else if (tauler[casella].tipus == 'festes'){
-	}	
-	else if (tauler[casella].tipus == 'examens'){
-	}
+	else if (tauler[casella].tipus == 'festes') festes(jugador);	
+	else if (tauler[casella].tipus == 'examens') examens(jugador);
 	else if (tauler[casella].tipus == 'impostos'){
 		if (casella == 2) incrementa(-200, jugador);
 		else incrementa(-100, jugador);
 	}
-	else {
-			//jugadors[jugador].pos = 10;
+	else if (tauler[casella].nom == 'Any sabàtic') jugadors[jugador].missturns = 1;
+	else if (tauler[casella].nom == 'Aeroport') {
+		jugadors[jugador].pos = Math.floor((Math.random()*ncaselles));
+		if (jugadors[jugador].pos < 24) jugadors[jugador].mon += 200;
+		tipuscasella(jugador);
+	}
+	else if (tauler[casella].nom == 'Corrupció') {
+		jugadors[jugador].mon += iva;
+		iva = 0;
+	}
+	else if (tauler[casella].nom == 'Vés a la presó'){
+			jugadors[jugador].pos = 10;
+			jugadors[jugador].jail == true;
 	}
 }
 
 //************
 // Construeix edificis si es pot i volsedificar[jugador]
 function edificar(jugador){
+	var shaedificat = false;
 	// Edificacio 1r edifici
 	for (var i = 1; i < ncaselles; i += 4){
 		if (tauler[i].propietari == jugador && tauler[i+2].propietari == jugador) {
-			if (tauler[i].level == 0 && volsedificar[jugador]) {
+			if (tauler[i].level == 0 && jugadors[jugador].mon >= (Math.floor(i/16) + 1)*60
+				&& volsedificar[jugador]) {
 				incrementa(- (Math.floor(i/16) + 1)*60, jugador);
-				++tauler[i].lvl;
+				++tauler[i].level;
+				shaedificat = true;
 			}
-			if (tauler[i+2].level == 0 && volsedificar[jugador]) {
+			if (tauler[i+2].level == 0 && jugadors[jugador].mon >= (Math.floor(i/16) + 1)*60
+				&& volsedificar[jugador]) {
 				incrementa(- (Math.floor(i/16) + 1)*60, jugador);
-				++tauler[i+2].lvl;
+				++tauler[i+2].level;
+				shaedificat = true;
 			}
 		}
 	}
@@ -252,25 +312,33 @@ function edificar(jugador){
 	for (var i = 1; i < ncaselles; i += 8){
 		if (tauler[i].propietari == jugador && tauler[i+2].propietari == jugador &&
 			tauler[i+4].propietari == jugador && tauler[i+6].propietari == jugador) {
-			if (tauler[i].level > 1 && tauler[i].level < 5 && volsedificar[jugador]) {
+			if (tauler[i].level >= 1 && tauler[i].level < 5 &&
+				jugadors[jugador].mon >= (Math.floor(i/16) + 1)*60 && volsedificar[jugador]) {
 				incrementa(- (Math.floor(i/16) + 1)*60, jugador);
-				++tauler[i].lvl;
+				++tauler[i].level;
+				shaedificat = true;
 			}
-			if (tauler[i+2].level > 1 && tauler[i+2].level < 5 && volsedificar[jugador]) {
+			if (tauler[i+2].level >= 1 && tauler[i+2].level < 5 &&
+				jugadors[jugador].mon >= (Math.floor(i/16) + 1)*60 && volsedificar[jugador]) {
 				incrementa(- (Math.floor(i/16) + 1)*60, jugador);
-				++tauler[i+2].lvl;
+				++tauler[i+2].level;
+				shaedificat = true;
 			}
-			if (tauler[i+4].level > 1 && tauler[i+4].level < 5 && volsedificar[jugador]) {
+			if (tauler[i+4].level >= 1 && tauler[i+4].level < 5 &&
+				jugadors[jugador].mon >= (Math.floor(i/16) + 1)*60 && volsedificar[jugador]) {
 				incrementa(- (Math.floor(i/16) + 1)*60, jugador);
-				++tauler[i+4].lvl;
+				++tauler[i+4].level;
+				shaedificat = true;
 			}
-			if (tauler[i+6].level > 1 && tauler[i+6].level < 5 && volsedificar[jugador]) {
+			if (tauler[i+6].level >= 1 && tauler[i+6].level < 5 &&
+				jugadors[jugador].mon >= (Math.floor(i/16) + 1)*60 && volsedificar[jugador]) {
 				incrementa(- (Math.floor(i/16) + 1)*60, jugador);
-				++tauler[i+6].lvl;
+				++tauler[i+6].level;
+				shaedificat = true;
 			}
 		}
 	}
-	actualitzapropietats(jugador);
+	if (shaedificat) actualitzapropietats(jugador);
 }
 
 //************
@@ -281,19 +349,29 @@ function refresh(){
 		document.getElementById("Mon" + i).innerHTML = jugadors[i].mon;
 		var string;
 		string = '';
-		for (var j = 0; j < jugadors[i].own.length; j++){
-			string += jugadors[i].own[j].lloc + '(' + jugadors[i].own[j].lvl + '), ';
+		for (var j = 0; j < jugadors[i].graus.length; j++){
+			string += jugadors[i].graus[j].lloc + '(' + jugadors[i].graus[j].lvl + '), ';
 		}
-		document.getElementById("Cases" + i).innerHTML = string;
+		document.getElementById("Graus" + i).innerHTML = string;
+		string = '';
+		for (var j = 0; j < jugadors[i].unis.length; j++){
+			string += jugadors[i].unis[j] + ', ';
+		}
+		document.getElementById("Unis" + i).innerHTML = string;
+		string = '';
+		for (var j = 0; j < jugadors[i].daus.length; j++){
+			string += jugadors[i].daus[j] + ', ';
+		}
+		document.getElementById("Daus" + i).innerHTML = string;
 	}
 }
 
 //************
 //Funcio que retorna el torn seguent o 0 si s'ha acabat la partida
 function nexturn(ActualPlayer, dobles){
-	if (dobles) return ActualPlayer;
+	if (dobles && jugadors[ActualPlayer].mon >= 0) return ActualPlayer;
 	var next = (ActualPlayer)%njugadors + 1;
-	if (jugadors[next].mon < 0) next = nexturn(next, dobles);
+	if (jugadors[next].mon < 0) next = nexturn(next, false);
 	if (next == ActualPlayer) finish = true;
 	return next;
 }
@@ -317,13 +395,14 @@ function winner(){
 // codi principal
 //
 var ActualPlayer = Math.floor((Math.random()*njugadors)+1);
+var iva = 0;
 var daus; // int, valor suma dels dos daus tirats
 var dobles; // bool
 var finish = false;
 
 var a = setInterval(function(){
 	newpos(ActualPlayer);
-	tipuscasella(jugadors[ActualPlayer].pos, ActualPlayer);
+	tipuscasella(ActualPlayer);
 	edificar(ActualPlayer);
 	refresh();
 	ActualPlayer = nexturn(ActualPlayer, dobles);
@@ -331,5 +410,5 @@ var a = setInterval(function(){
 		alert('El jugador ' + ActualPlayer + ' guanya!! Losers cry');
 		clearInterval(a);
 	}
-}, 50);
+}, 1000);
 }
