@@ -127,13 +127,16 @@ tauler[46] = new Casella('impostos',0,'Compra de material',0,0,0,0,0,0,0,0);
 tauler[47] = new Casella('grau',0,'Enginyeria interdisciplinària',400,40,400,800,1200,1600,2000,0);
 
 //************
-// Tira els daus, mou el jugador i avisa si hi ha dobles
+//Pre: es un jugador viu, sabem si esta o no a la presó
+//Post: Tira els daus, mou el jugador i avisa si hi ha dobles
 function newpos (jugador){
 	d1 = Math.floor((Math.random()*6)+1);
 	d2 = Math.floor((Math.random()*6)+1);
 	daus = d1 + d2;
 	if (d1 == d2) dobles = true;
 	else dobles = false;
+	//Si treus dobles surts de la presó, si no com que ja no estàs a la presó se't suma
+	//la posició igualment
 	if (!jugadors[jugador].jail || dobles){
 		jugadors[jugador].pos += daus;
 		jugadors[jugador].jail = false;
@@ -168,7 +171,8 @@ volscomprar[5] = function () { return true };
 volscomprar[6] = function () { return true };
 
 //***********
-// Totes les propietats del jugador "jugador" passen a ser del jugador 0
+//Pre: jugadors[jugador].mon < 0
+//Post: Totes les propietats del jugador "jugador" passen a ser del jugador 0
 function bancarrota(jugador){
 	for (var i = 0; i < ncaselles; ++i){
 		if (tauler[i].propietari == jugador) {
