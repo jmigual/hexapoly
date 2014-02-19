@@ -33,8 +33,11 @@ function numero() {
 function monopoly(){
 
 var jugadors = new Array();
-for (var i = 0; i <= njugadors; ++i) jugadors.push({pos: 0, mon: 600, jail: false,
-	missturns: 0, graus: new Array(), unis: new Array(), daus: new Array()});
+for (var i = 0; i <= njugadors; ++i) {
+	jugadors.push({pos: 0, mon: 600, jail: false, 
+	missturns: 0, graus: new Array(), unis: new Array(), 
+	daus: new Array()});
+}
 
 // actualitza l'array own del jugador
 function actualitzapropietats(jugador){
