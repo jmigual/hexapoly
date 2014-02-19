@@ -268,13 +268,15 @@ function tipuscasella(jugador){
 }
 
 //************ pendent d'acabar d modificar -- Arnau
+/*
 function casellasedificables(jugador, i){
 	if (tauler[i+1].propietari == jugador && tauler[i+3].propietari == jugador &&
 		&& tauler[i+1].level <= 2 && tauler[i+1].preuedif >= jugadors[jugador].mon){
-		if (volsedificar[jugador]()/*casella i+1*/ && tauler[i+1].level == tauler[i+3].level){
+		if (volsedificar[jugador]() //casella i+1 // && tauler[i+1].level == tauler[i+3].level){
 			
 		}
 	}
+	*/
 // falta acabar
 /*	if (tauler[a].propietari == jugador && tauler[b].propietari == jugador
 		&& tauler[c].propietari == jugador && tauler[c].level < 5
