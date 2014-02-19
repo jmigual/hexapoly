@@ -3,6 +3,7 @@ var njugadors;
 var ncaselles = 48;
 
 function numero() {
+	//Prova 1
 	var number = document.forms[0].number;
 	var txt = "";
 	var alertar = true;
