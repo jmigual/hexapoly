@@ -159,7 +159,8 @@ volsedificar[6] = function () { return true };
 
 //Funcions per les inteligencies artificials per comprar
 var volscomprar = new Array;
-volscomprar[1] = function () { return confirm('Vols comprar la casella ' + jugadors[1].pos + ' per ' + tauler[jugadors[1].pos].preu + '?') };
+volscomprar[1] = function () { return confirm('Vols comprar la casella ' + 
+	jugadors[1].pos + ' per ' + tauler[jugadors[1].pos].preu + '?') };
 volscomprar[2] = function () { return true };
 volscomprar[3] = function () { return true };
 volscomprar[4] = function () { return true };
@@ -169,10 +170,10 @@ volscomprar[6] = function () { return true };
 //***********
 // Totes les propietats del jugador "jugador" passen a ser del jugador 0
 function bancarrota(jugador){
-	for (var i=0; i<ncaselles; i++){
+	for (var i = 0; i < ncaselles; ++i){
 		if (tauler[i].propietari == jugador) {
 			tauler[i].propietari = 0;
-			// tauler[i].level = 0; // desactivat: la propietat conserva les cases!
+			tauler[i].level = 0;
 		}
 	}
 	actualitzapropietats(jugador);
@@ -186,8 +187,8 @@ function incrementa(quantitat, jugador){
 
 // El jugador2 paga una quantitat de diners al jugador1
 function transferencia(quantitat, jugador1, jugador2){
-	incrementa(quantitat, jugador1);
-	incrementa(- quantitat, jugador2);
+	incrementa(0.79*quantitat, jugador1);
+	incrementa(-quantitat, jugador2);
 	iva += 0.21*quantitat;
 }
 
