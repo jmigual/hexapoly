@@ -4,11 +4,11 @@ var ncaselles = 48;
 
 function numero() {
 	var number = document.forms[0].number;
-	var txt = "";
+	var txt;
 	var alertar = true;
 	for (var i = 0; i < number.length ; ++i) {
 		if (number[i].checked) {
-	    	txt = txt + number[i].value;
+	    	txt = number[i].value;
 	    	njugadors = parseInt(number[i].value);	    	
 	    	txt = "Sou " + txt + " jugadors" + '<br><br><table border=2><tr>';
  	    	for (var i = 1; i <= njugadors; ++i)  {
