@@ -351,22 +351,22 @@ function edificar(jugador){
 //************
 //Actualitzar els marcadors
 function refresh(){
-	for (var i = 1; i <= njugadors; i++){
+	for (var i = 1; i <= njugadors; ++i){
 		document.getElementById("Pos" + i).innerHTML = jugadors[i].pos;
 		document.getElementById("Mon" + i).innerHTML = jugadors[i].mon;
 		var string;
 		string = '';
-		for (var j = 0; j < jugadors[i].graus.length; j++){
+		for (var j = 0; j < jugadors[i].graus.length; ++j){
 			string += jugadors[i].graus[j].lloc + '(' + jugadors[i].graus[j].lvl + '), ';
 		}
 		document.getElementById("Graus" + i).innerHTML = string;
 		string = '';
-		for (var j = 0; j < jugadors[i].unis.length; j++){
+		for (var j = 0; j < jugadors[i].unis.length; ++j){
 			string += jugadors[i].unis[j] + ', ';
 		}
 		document.getElementById("Unis" + i).innerHTML = string;
 		string = '';
-		for (var j = 0; j < jugadors[i].daus.length; j++){
+		for (var j = 0; j < jugadors[i].daus.length; ++j){
 			string += jugadors[i].daus[j] + ', ';
 		}
 		document.getElementById("Daus" + i).innerHTML = string;
