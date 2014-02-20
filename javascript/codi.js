@@ -408,8 +408,8 @@ var dobles; // bool
 var finish = false;
 
 var a = setInterval(function(){
-	refresh();
 	newpos(ActualPlayer);
+	refresh();
 	tipuscasella(ActualPlayer);
 	edificar(ActualPlayer);
 	ActualPlayer = nexturn(ActualPlayer, dobles);
