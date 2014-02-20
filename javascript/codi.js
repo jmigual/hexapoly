@@ -13,7 +13,7 @@ function numero() {
 	    	txt = "Sou " + txt + " jugadors" + '<br><br><table border=2><tr>';
  	    	for (var i = 1; i <= njugadors; ++i)  {
  	    		txt += '<td><h1>Jugador ' + i + '</h1><br>Posicio:<div id="Pos' + i + '"">0</div>';
- 	    		txt += 'Diners:<div id="Mon' + i + '"">2000</div>';
+ 	    		txt += 'Diners:<div id="Mon' + i + '"">600</div>';
  	    		txt += '<br>Graus(nivell): <div id=Graus' + i +'></div>';
  	    		txt += '<br>Unis: <div id=Unis' + i +'></div>';
  	    		txt += '<br>Companyies de ferrocarrils: <div id=Daus' + i +'></div>';
