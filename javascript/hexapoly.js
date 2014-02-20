@@ -97,7 +97,7 @@ tauler[45] = new Casella('grau',0,'Arquitectura',375,37.5,375,750,1125,1500,1875
 tauler[46] = new Casella('impostos',0,'Compra de material',0,0,0,0,0,0,0,0);
 tauler[47] = new Casella('grau',0,'Enginyeria interdisciplinària',400,40,400,800,1200,1600,2000,0);
 
-//************
+
 //Pre: es un jugador viu, sabem si esta o no a la presó
 //Post: Tira els daus, mou el jugador i avisa si hi ha dobles
 function newpos (jugador){
@@ -106,12 +106,14 @@ function newpos (jugador){
 	daus = d1 + d2;
 	if (d1 == d2) dobles = true;
 	else dobles = false;
-	//Si treus dobles surts de la presó, si no com que ja no estàs a la presó se't suma
-	//la posició igualment
+
+	//Si estas a la presó i no treus dobles no et mous, si treus
 	if (!jugadors[jugador].jail || dobles){
 		jugadors[jugador].pos += daus;
 		jugadors[jugador].jail = false;
 	}
+
+	//Mira si fa una volta 
 	if (jugadors[jugador].pos >= ncaselles){
 		jugadors[jugador].pos -= ncaselles;
 		jugadors[jugador].mon += 60;
@@ -238,30 +240,6 @@ function tipuscasella(jugador){
 	}
 }
 
-//************ pendent d'acabar d modificar -- Arnau
-/*
-function casellasedificables(jugador, i){
-	if (tauler[i+1].propietari == jugador && tauler[i+3].propietari == jugador &&
-		&& tauler[i+1].level <= 2 && tauler[i+1].preuedif >= jugadors[jugador].mon){
-		if (volsedificar[jugador]() //casella i+1 // && tauler[i+1].level == tauler[i+3].level){
-			
-		}
-	}
-	*/
-// falta acabar
-/*	if (tauler[a].propietari == jugador && tauler[b].propietari == jugador
-		&& tauler[c].propietari == jugador && tauler[c].level < 5
-		&& preuhotel(c) <= jugadors[jugador].mon){
-		var edificable = a;
-		if (tauler[b].level < tauler[a].level) edificable = b;
-		if (tauler[c].level < tauler[b].level) edificable = c;
-		if (confirm("Jugador " + jugador + ". Vols edificar a la casella " + edificable + "? Preu: " + preuhotel(c))) {
-			jugadors[jugador].mon -= preuhotel(c);
-			tauler[edificable].level++;
-			casellasedificables(jugador,a,b,c);
-		}
-	}
-}*/
 
 
 
