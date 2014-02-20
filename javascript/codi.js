@@ -1,8 +1,7 @@
-
+var ncaselles = 48;
+var njugadors;
 function numero() {
 	// Num. jugadors i caselles
-	var ncaselles = 48;
-	var njugadors;
 
 	//********************
 	var number = document.forms[0].number;
@@ -24,7 +23,7 @@ function numero() {
  	    	txt += '</tr></table>';
  	    	document.getElementById('jugadors').innerHTML = txt;
  	    	
-	    	monopoly(njugadors, ncaselles);
+	    	monopoly();
 	    	alertar = false;
 		}
 	}

@@ -1,10 +1,13 @@
-function monopoly(njugadors, ncaselles){
+
 
 var jugadors = new Array();
-for (var i = 0; i <= njugadors; ++i) {
-	jugadors.push({pos: 0, mon: 600, jail: false, 
-	missturns: 0, graus: new Array(), unis: new Array(), 
-	daus: new Array()});
+//Crea tants jugadors com njguadors amt totes les seves característiques
+function create() {
+	for (var i = 0; i <= njugadors; ++i) {
+		jugadors.push({pos: 0, mon: 600, jail: false, 
+		missturns: 0, graus: new Array(), unis: new Array(), 
+		daus: new Array()});
+	}
 }
 
 // actualitza l'array own del jugador
@@ -260,61 +263,7 @@ function casellasedificables(jugador, i){
 	}
 }*/
 
-function edificar(jugador){
-	for (var i=0; i<6; ++i) casellesedificables(jugador, i);
-}
-// Construeix edificis si es pot i volsedificar[jugador]
-function edificar(jugador){
-	var shaedificat = false;
-	// Edificacio 1r edifici
-	for (var i = 1; i < ncaselles; i += 4){
-		if (tauler[i].propietari == jugador && tauler[i+2].propietari == jugador) {
-			if (tauler[i].level == 0 && jugadors[jugador].mon >= (Math.floor(i/16) + 1)*60
-				&& volsedificar[jugador]()) {
-				incrementa(- (Math.floor(i/16) + 1)*60, jugador);
-				++tauler[i].level;
-				shaedificat = true;
-			}
-			if (tauler[i+2].level == 0 && jugadors[jugador].mon >= (Math.floor(i/16) + 1)*60
-				&& volsedificar[jugador]()) {
-				incrementa(- (Math.floor(i/16) + 1)*60, jugador);
-				++tauler[i+2].level;
-				shaedificat = true;
-			}
-		}
-	}
-	// Edificacio resta d'edificis
-	for (var i = 1; i < ncaselles; i += 8){
-		if (tauler[i].propietari == jugador && tauler[i+2].propietari == jugador &&
-			tauler[i+4].propietari == jugador && tauler[i+6].propietari == jugador) {
-			if (tauler[i].level >= 1 && tauler[i].level < 5 &&
-				jugadors[jugador].mon >= (Math.floor(i/16) + 1)*60 && volsedificar[jugador]) {
-				incrementa(- (Math.floor(i/16) + 1)*60, jugador);
-				++tauler[i].level;
-				shaedificat = true;
-			}
-			if (tauler[i+2].level >= 1 && tauler[i+2].level < 5 &&
-				jugadors[jugador].mon >= (Math.floor(i/16) + 1)*60 && volsedificar[jugador]) {
-				incrementa(- (Math.floor(i/16) + 1)*60, jugador);
-				++tauler[i+2].level;
-				shaedificat = true;
-			}
-			if (tauler[i+4].level >= 1 && tauler[i+4].level < 5 &&
-				jugadors[jugador].mon >= (Math.floor(i/16) + 1)*60 && volsedificar[jugador]) {
-				incrementa(- (Math.floor(i/16) + 1)*60, jugador);
-				++tauler[i+4].level;
-				shaedificat = true;
-			}
-			if (tauler[i+6].level >= 1 && tauler[i+6].level < 5 &&
-				jugadors[jugador].mon >= (Math.floor(i/16) + 1)*60 && volsedificar[jugador]) {
-				incrementa(- (Math.floor(i/16) + 1)*60, jugador);
-				++tauler[i+6].level;
-				shaedificat = true;
-			}
-		}
-	}
-	if (shaedificat) actualitzapropietats(jugador);
-}
+
 
 //************
 //Actualitzar els marcadors
@@ -369,21 +318,28 @@ function winner(){
 //
 // codi principal
 //
-var ActualPlayer = Math.floor((Math.random()*njugadors)+1);
-var iva = 0;
+var ActualPlayer;
+var iva;
 var daus; // int, valor suma dels dos daus tirats
 var dobles; // bool
-var finish = false;
+var finish;
 
-var a = setInterval(function(){
-	newpos(ActualPlayer);
-	refresh();
-	tipuscasella(ActualPlayer);
-	edificar(ActualPlayer);
-	ActualPlayer = nexturn(ActualPlayer, dobles);
-	if (finish){
-		alert('El jugador ' + ActualPlayer + ' guanya!! Losers cry');
-		clearInterval(a);
-	}
-}, 1000);
+function monopoly(){
+	//Cridem a la funció per crear els jugadors de la partida
+	create();
+	//Inicialitzem variables globals
+	ActualPlayer = Math.floor((Math.random()*njugadors)+1);
+	iva = 21;
+	finish = false;
+	var a = setInterval(function(){
+		newpos(ActualPlayer);
+		refresh();
+		tipuscasella(ActualPlayer);
+		edificar(ActualPlayer);
+		ActualPlayer = nexturn(ActualPlayer, dobles);
+		if (finish){
+			alert('El jugador ' + ActualPlayer + ' guanya!! Losers cry');
+			clearInterval(a);
+		}
+	}, 2000);
 }
