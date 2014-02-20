@@ -9,7 +9,7 @@ function numero() {
 	for (var i = 0; i < number.length ; ++i) {
 		if (number[i].checked) {
 	    	txt = txt + number[i].value;
-	    	njugadors = parseInt(number[i].value);
+	    	njugadors = parseInt(number[i].value);	    	
 	    	txt = "Sou " + txt + " jugadors" + '<br><br><table border=2><tr>';
  	    	for (var i = 1; i <= njugadors; ++i)  {
  	    		txt += '<td><h1>Jugador ' + i + '</h1><br>Posicio:<div id="Pos' + i + '"">0</div>';
@@ -21,7 +21,7 @@ function numero() {
  	    	}
  	    	txt += '</tr></table>';
  	    	document.getElementById('jugadors').innerHTML = txt;
-
+ 	    	
 	    	monopoly();
 	    	alertar = false;
 		}
