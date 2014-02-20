@@ -353,7 +353,7 @@ function edificar(jugador){
 function refresh(){
 	for (var i = 1; i <= njugadors; ++i){
 		document.getElementById("Pos" + i).innerHTML = jugadors[i].pos;
-		document.getElementById("Mon" + i).innerHTML = jugadors[i].mon.toFixed(2);
+		document.getElementById("Mon" + i).innerHTML = Math.max (jugadors[i].mon.toFixed(2), 0);
 		var string;
 		string = '';
 		for (var j = 0; j < jugadors[i].graus.length; ++j){
