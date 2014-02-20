@@ -1,9 +1,8 @@
+// Num. jugadors i caselles
 var ncaselles = 48;
 var njugadors;
-function numero() {
-	// Num. jugadors i caselles
 
-	//********************
+function numero() {
 	var number = document.forms[0].number;
 	var txt;
 	var alertar = true;
