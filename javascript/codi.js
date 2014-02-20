@@ -408,10 +408,10 @@ var dobles; // bool
 var finish = false;
 
 var a = setInterval(function(){
+	refresh();
 	newpos(ActualPlayer);
 	tipuscasella(ActualPlayer);
 	edificar(ActualPlayer);
-	refresh();
 	ActualPlayer = nexturn(ActualPlayer, dobles);
 	if (finish){
 		alert('El jugador ' + ActualPlayer + ' guanya!! Losers cry');
