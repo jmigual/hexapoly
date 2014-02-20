@@ -1,3 +1,25 @@
+// Pre: cert
+// Post: actualitza l'array own del jugador
+function actualitzapropietats(jugador){
+	jugadors[jugador].graus = new Array(0);
+	for (var i=1; i<ncaselles; i+=2) {
+		if (tauler[i].propietari == jugador){
+			jugadors[jugador].graus.push({lloc: i, lvl: tauler[i].level});
+		}
+	}
+	jugadors[jugador].unis = new Array(0);
+	for (var i=4; i<ncaselles; i+=8) {
+		if (tauler[i].propietari == jugador){
+			jugadors[jugador].unis.push(i);
+		}
+	}
+	jugadors[jugador].daus = new Array(0);
+	for (var i=14; i<35; i+=20) {
+		if (tauler[i].propietari == jugador){
+			jugadors[jugador].daus.push(i);		}
+	}
+}
+
 //************ pendent d'acabar d modificar -- Arnau
 /*
 function casellasedificables(jugador, i){

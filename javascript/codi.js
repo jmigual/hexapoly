@@ -29,5 +29,3 @@ function numero() {
 	}
 	if (alertar) alert("Has de seleccionar el nombre de jugadors!!!");
 }
-
-//******************************************
