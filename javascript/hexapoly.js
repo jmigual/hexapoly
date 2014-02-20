@@ -1,7 +1,8 @@
 
 
 var jugadors = new Array();
-//Crea tants jugadors com njguadors amt totes les seves característiques
+// Pre: existeix un array de jugadors
+// Post: crea tants jugadors com njguadors amb totes les seves característiques
 function create() {
 	for (var i = 0; i <= njugadors; ++i) {
 		jugadors.push({pos: 0, mon: 600, jail: false, 
@@ -10,7 +11,8 @@ function create() {
 	}
 }
 
-// actualitza l'array own del jugador
+// Pre: cert
+// Post: actualitza l'array own del jugador
 function actualitzapropietats(jugador){
 	jugadors[jugador].graus = new Array(0);
 	for (var i=1; i<ncaselles; i+=2) {
@@ -30,8 +32,8 @@ function actualitzapropietats(jugador){
 			jugadors[jugador].daus.push(i);		}
 	}
 }
-
-// Declara tauler
+// Pre: cert
+// Post: declara tauler
 function Casella(tipus, propietari, nom, preu, normal, ucasa, dcasa, tcasa, qcasa, hotel, level) {
     this.tipus = tipus;
 	this.propietari = propietari;
@@ -98,8 +100,8 @@ tauler[46] = new Casella('impostos',0,'Compra de material',0,0,0,0,0,0,0,0);
 tauler[47] = new Casella('grau',0,'Enginyeria interdisciplinària',400,40,400,800,1200,1600,2000,0);
 
 
-//Pre: es un jugador viu, sabem si esta o no a la presó
-//Post: Tira els daus, mou el jugador i avisa si hi ha dobles
+// Pre: es un jugador viu, sabem si esta o no a la presó
+// Post: Tira els daus, mou el jugador i avisa si hi ha dobles
 function newpos (jugador){
 	d1 = Math.floor((Math.random()*6)+1);
 	d2 = Math.floor((Math.random()*6)+1);
@@ -123,7 +125,7 @@ function newpos (jugador){
 //**********
 // Intel.ligencies (artificials o no)
 
-//Funcions per les inteligencies per construir
+// Funcions per les inteligencies per construir
 var volsedificar = new Array;
 volsedificar[1] = function () { return true };
 volsedificar[2] = function () { return true };
@@ -133,7 +135,7 @@ volsedificar[5] = function () { return true };
 volsedificar[6] = function () { return true };
 
 
-//Funcions per les inteligencies artificials per comprar
+// Funcions per les inteligencies artificials per comprar
 var volscomprar = new Array;
 volscomprar[1] = function () { return confirm('Vols comprar la casella ' + 
 	jugadors[1].pos + ' per ' + tauler[jugadors[1].pos].preu + '?') };
@@ -144,8 +146,8 @@ volscomprar[5] = function () { return true };
 volscomprar[6] = function () { return true };
 
 //***********
-//Pre: jugadors[jugador].mon < 0
-//Post: Totes les propietats del jugador "jugador" passen a ser del jugador 0
+// Pre: jugadors[jugador].mon < 0
+// Post: Totes les propietats del jugador "jugador" passen a ser del jugador 0
 function bancarrota(jugador){
 	for (var i = 0; i < ncaselles; ++i){
 		if (tauler[i].propietari == jugador) {
