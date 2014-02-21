@@ -36,6 +36,9 @@ function newpos (jugador){
 		jugadors[jugador].pos -= ncaselles;
 		jugadors[jugador].mon += 60;
 	}
+
+	// Actualitza posicio
+	refreshpos(jugador);
 }
 
 
@@ -50,12 +53,16 @@ function bancarrota(jugador){
 		}
 	}
 	actualitzapropietats(jugador);
+
+	jugadors[jugador].pos = 'ARRUINAT';
+	refreshpos(jugador);
 }
 
 // Suma una quantitat de diners a un jugador
 function incrementa(quantitat, jugador){
 	jugadors[jugador].mon = jugadors[jugador].mon + quantitat;
 	if (jugadors[jugador].mon < 0) bancarrota(jugador);
+	refreshmon(jugador);
 }
 
 // El jugador2 paga una quantitat de diners al jugador1
@@ -81,6 +88,7 @@ function taxadaus(){
 // accions caselles festes i examens, de moment moviments random endavant o enrere
 function festes(jugador){
 	jugadors[jugador].pos += Math.floor(Math.random()*11-5);
+	refreshpos(jugador);
 	tipuscasella(jugador);
 }
 function examens(jugador){ festes(jugador);}
@@ -124,6 +132,7 @@ function tipuscasella(jugador){
 	else if (tauler[casella].nom == 'Aeroport') {
 		jugadors[jugador].pos = Math.floor((Math.random()*ncaselles));
 		if (jugadors[jugador].pos < 24) jugadors[jugador].mon += 200;
+		refreshpos(jugador);
 		tipuscasella(jugador);
 	}
 	else if (tauler[casella].nom == 'Corrupció') {
@@ -133,13 +142,14 @@ function tipuscasella(jugador){
 	else if (tauler[casella].nom == 'Vés a la presó'){
 			jugadors[jugador].pos = 10;
 			jugadors[jugador].jail == true;
+			refreshpos(jugador);
 	}
 }
 
 
 
 
-//************
+/************
 //Actualitzar els marcadors
 function refresh(){
 	for (var i = 1; i <= njugadors; ++i){
@@ -162,7 +172,7 @@ function refresh(){
 		}
 		document.getElementById("Daus" + i).innerHTML = string;
 	}
-}
+}*/
 
 //************
 //Funcio que retorna el torn seguent o 0 si s'ha acabat la partida
@@ -207,7 +217,7 @@ function monopoly(){
 	finish = false;
 	var a = setInterval(function(){
 		newpos(ActualPlayer);
-		refresh();
+		//refresh();
 		tipuscasella(ActualPlayer);
 		edificar(ActualPlayer);
 		ActualPlayer = nexturn(ActualPlayer, dobles);
