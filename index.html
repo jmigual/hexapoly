@@ -21,13 +21,17 @@
 
 <body>
 	<div id="container">
-		<div class="photo">
-			<img src ="./img/Hexapoly.png">
+		<div class="col" style="border: 1px">
+			<div class="well">
+				<div id="canvas_container" style="border: #DDDDDD 1px solid; background-color: white; height: 600px;">
+					<!--<img src ="./img/Hexapoly.png">-->
+					<canvas id="canv"></canvas>
+				</div>
+			</div>
 		</div>
 		<div id=jugadors>
 		<br>Nombre de jugadors: <br>
 			<form id="form">
-				<input type=radio name="number" value="1">1<br>
 				<input type=radio name="number" value="2">2<br>
 				<input type=radio name="number" value="3">3<br>
 				<input type=radio name="number" value="4">4<br>
