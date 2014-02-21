@@ -1,6 +1,7 @@
 
 
 var jugadors = new Array();
+
 // Pre: existeix un array de jugadors
 // Post: crea tants jugadors com njguadors amb totes les seves característiques
 function create() {

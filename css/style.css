@@ -1,10 +1,3 @@
-@media screen and (min-width: 700px) and (max-width: 1000px) {
-  #container {
-    width: 700px;
-  }
-}
-
-
 html, body {
   margin:0;
   padding:0;
@@ -12,22 +5,91 @@ html, body {
   width: 100%;
 }
 body {
-	font-family: Verdana, Geneva, sans-serif;
-	font-size: 14px;
-}
-.photo {
-  height: 100%;
-  float: left;
-}
-
-.photo img {
-	max-height:100%;
-  max-width: 100%;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 14px;
 }
 
 h1 {
-	font-size: 18px;
+  font-size: 18px;
 }
+
+@media screen and (orientation: portrair) {
+  body {
+    background-color: green;
+  }
+}
+
+@media screen and (orientation: landscape) {
+  body {
+    background-color: blue;
+  }
+}
+
+/*
+@media screen and (min-width: 700px) and (max-width: 1000px) {
+  #container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 700px;
+  }
+  #col1 {
+  width: 100%;
+  height: 100%;
+  }
+
+  .well {
+    height: 100%
+  }
+
+} */
+/*
+@media screen and (min-width: 1001px) and (max-width: 1200px) {
+  #container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #col1 {
+  width: 60%;
+  float: left;
+  }
+
+  #col2 {
+    width: 40%;
+  }
+
+}
+
+@media screen and (min-width: 1201px) {
+  #container {
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media screen and (max-heigh: )
+
+#container {
+  height: 100%;
+}
+
+#canvas_container {
+  width: 100%;
+  height: 100%;
+  background-color: #D8D8D8;
+}
+
+
+
+
+
+
+*/
+
+
+
+
 
 /*      ____________
        /\  ________ \

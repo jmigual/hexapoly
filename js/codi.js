@@ -20,7 +20,7 @@ function numero() {
  	    		txt += '</td>';
  	    	}
  	    	txt += '</tr></table>';
- 	    	document.getElementById('jugadors').innerHTML = txt;
+ 	    	document.getElementById('col2').innerHTML = txt;
  	    	
 	    	monopoly();
 	    	alertar = false;
