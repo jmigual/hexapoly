@@ -70,7 +70,8 @@ tauler[47] = new Casella('grau',0,'Enginyeria interdisciplinària',400,40,400,80
 
 // Funcions per les inteligencies per construir
 var volsedificar = new Array;
-volsedificar[1] = function () { return true };
+volsedificar[1] = function () { return confirm('Vols edificar a la casella ' + 
+	jugadors[1].pos + ' per ' + tauler[jugadors[1].pos].preu + '?') };
 volsedificar[2] = function () { return true };
 volsedificar[3] = function () { return true };
 volsedificar[4] = function () { return true };
