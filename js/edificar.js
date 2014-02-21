@@ -20,86 +20,74 @@ function actualitzapropietats(jugador){
 	}
 }
 
-//************ pendent d'acabar d modificar -- Arnau
-/*
-function casellasedificables(jugador, i){
-	if (tauler[i+1].propietari == jugador && tauler[i+3].propietari == jugador &&
-		&& tauler[i+1].level <= 2 && tauler[i+1].preuedif >= jugadors[jugador].mon){
-		if (volsedificar[jugador]() //casella i+1 // && tauler[i+1].level == tauler[i+3].level){
-			
+// Pre: a, b, c, i d son 4 caselles ordenades en ordre creixent
+// Post: retorna la casella en nivell minim i, en cas d'empat, la casella mes petita
+function minim(a, b, c, d){
+	if (tauler[a].level <= tauler[b].level){
+		if (tauler[a].level <= tauler[c].level){
+			if (tauler[a].level <= tauler[d].level) return a;
+			else return d;
+		} else {
+			if (tauler[c].level <= tauler[d].level) return c;
+			else return d;
+		}
+	} else {
+		if (tauler[b].level <= tauler[c].level){
+			if (tauler[b].level <= tauler[d].level) return b;
+			else return d;
+		} else {
+			if (tauler[c].level <= tauler[d].level) return c;
+			else return d;
 		}
 	}
-	*/
-// falta acabar
-/*	if (tauler[a].propietari == jugador && tauler[b].propietari == jugador
-		&& tauler[c].propietari == jugador && tauler[c].level < 5
-		&& preuhotel(c) <= jugadors[jugador].mon){
-		var edificable = a;
-		if (tauler[b].level < tauler[a].level) edificable = b;
-		if (tauler[c].level < tauler[b].level) edificable = c;
-		if (confirm("Jugador " + jugador + ". Vols edificar a la casella " + edificable + "? Preu: " + preuhotel(c))) {
-			jugadors[jugador].mon -= preuhotel(c);
-			tauler[edificable].level++;
-			casellasedificables(jugador,a,b,c);
-		}
-	}
-}*/
-
-/*
-
-function edificar(jugador){
-	for (var i=0; i<6; ++i) casellesedificables(jugador, i);
-} */
-
-// Construeix edificis si es pot i volsedificar[jugador]
-function edificar(jugador){
-	var shaedificat = false;
-	// Edificacio 1r edifici
-	for (var i = 1; i < ncaselles; i += 4){
-		if (tauler[i].propietari == jugador && tauler[i+2].propietari == jugador) {
-			if (tauler[i].level == 0 && jugadors[jugador].mon >= (Math.floor(i/16) + 1)*60
-				&& volsedificar[jugador]()) {
-				incrementa(- (Math.floor(i/16) + 1)*60, jugador);
-				++tauler[i].level;
-				shaedificat = true;
-			}
-			if (tauler[i+2].level == 0 && jugadors[jugador].mon >= (Math.floor(i/16) + 1)*60
-				&& volsedificar[jugador]()) {
-				incrementa(- (Math.floor(i/16) + 1)*60, jugador);
-				++tauler[i+2].level;
-				shaedificat = true;
-			}
-		}
-	}
-	// Edificacio resta d'edificis
-	for (var i = 1; i < ncaselles; i += 8){
-		if (tauler[i].propietari == jugador && tauler[i+2].propietari == jugador &&
-			tauler[i+4].propietari == jugador && tauler[i+6].propietari == jugador) {
-			if (tauler[i].level >= 1 && tauler[i].level < 5 &&
-				jugadors[jugador].mon >= (Math.floor(i/16) + 1)*60 && volsedificar[jugador]) {
-				incrementa(- (Math.floor(i/16) + 1)*60, jugador);
-				++tauler[i].level;
-				shaedificat = true;
-			}
-			if (tauler[i+2].level >= 1 && tauler[i+2].level < 5 &&
-				jugadors[jugador].mon >= (Math.floor(i/16) + 1)*60 && volsedificar[jugador]) {
-				incrementa(- (Math.floor(i/16) + 1)*60, jugador);
-				++tauler[i+2].level;
-				shaedificat = true;
-			}
-			if (tauler[i+4].level >= 1 && tauler[i+4].level < 5 &&
-				jugadors[jugador].mon >= (Math.floor(i/16) + 1)*60 && volsedificar[jugador]) {
-				incrementa(- (Math.floor(i/16) + 1)*60, jugador);
-				++tauler[i+4].level;
-				shaedificat = true;
-			}
-			if (tauler[i+6].level >= 1 && tauler[i+6].level < 5 &&
-				jugadors[jugador].mon >= (Math.floor(i/16) + 1)*60 && volsedificar[jugador]) {
-				incrementa(- (Math.floor(i/16) + 1)*60, jugador);
-				++tauler[i+6].level;
-				shaedificat = true;
-			}
-		}
-	}
-	if (shaedificat) actualitzapropietats(jugador);
+	return "error"; // impossible
 }
+
+// Pre: i es multiple de 4; 0 <= i < ncaselles; tauler[i+1].preuedif == tauler[i+3].preuedif
+// Post: edifica a les caselles i+1,i+3 si son del jugador i si volsedificar[jugador](casella) fins al nivell 2
+//       retorna true si s'ha edificat
+function edif2(jugador, i){
+	if (tauler[i+3].level < 2 && jugadors[jugador].mon >= tauler[i+1].preuedif){
+		if (tauler[i+1].level <= tauler[i+3].level) var e = i+1;
+		else var e = i+3;
+		if (volsedificar[jugador](e)){
+			incrementa(- tauler[i+1].preuedif, jugador);
+			tauler[e].level++;
+			edif2(jugador,i);
+			return true;
+		}
+	}
+}
+
+// Pre: i es multiple d 8; 0 <= i < ncaselles; tauler[i+1].preuedif == ... == tauler[i+7].preuedif
+// Post: edifica a les caselles i+1,...,i+7 si son del jugador i si volsedificar[jugador](casella)
+//		 retorna true si s'ha edificat
+function edif4(jugador, i){
+	if (tauler[i+7].level < 5 && jugadors[jugador].mon >= tauler[i+1].preuedif){
+		var e = minim(i+1, i+3, i+5, i+7);
+		if (volsedificar[jugador](e)){
+			incrementa(- tauler[i+1].preuedif, jugador);
+			tauler[e].level++;
+			edif4(jugador,i);
+			return true;
+		}
+	}
+}
+
+// Pre: cert
+// Post: edifica a les caselles del jugador on es pot si volsedificar[jugador](casella)
+function edificar(jugador){
+	var b = false;
+	var bb;
+	for (var i=0; i<ncaselles; i+=8) {
+		var has1sts = tauler[i+1].propietari == jugador && tauler[i+3].propietari == jugador;
+		var has2nds = tauler[i+5].propietari == jugador && tauler[i+7].propietari == jugador;
+		if (has1sts) bb = edif2(jugador, i);
+		if (!b) b = bb;
+		if (has2nds) bb = edif2(jugador, i+4);
+		if (!b) b = bb;
+		if (has1sts && has2nds) bb = edif4(jugador, i);
+		if (!b) b = bb;
+	}
+	if (b) actualitzapropietats(jugador);
+} 
