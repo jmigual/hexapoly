@@ -13,16 +13,48 @@ h1 {
   font-size: 18px;
 }
 
-@media screen and (orientation: portrair) {
-  body {
-    background-color: green;
+#container {
+  width: 100%;
+  height: 100%;
+}
+
+.well {
+  width: 100%;
+  height: 100%;
+}
+
+#canvas_container {
+  width: 100%;
+  height: 100%;
+  background-color: #D8D8D8;
+}
+
+@media screen and (min-width: 1001px) and (max-width: 1199px) {
+  #container {
+    width: 950px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #col1 {
+    width: 60%;
+    height: 100%;
   }
 }
 
-@media screen and (orientation: landscape) {
-  body {
-    background-color: blue;
-  }
+@media screen and (min-width: 700px) and (max-width: 1000px) and (orientation: landscape) {
+
+}
+
+@media screen and (min-width: 700px) and (max-width: 1000px) and (orientation: portrait) {
+
+}
+
+@media screen and (max-width: 699px) and (orientation: landscape) {
+
+}
+
+@media screen and (max-width: 699px) and (orientation: portrait) {
+
 }
 
 /*
@@ -74,11 +106,7 @@ h1 {
   height: 100%;
 }
 
-#canvas_container {
-  width: 100%;
-  height: 100%;
-  background-color: #D8D8D8;
-}
+
 
 
 
