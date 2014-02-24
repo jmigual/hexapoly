@@ -1,20 +1,3 @@
-
-var jugadors = new Array();
-
-// Pre: existeix un array de jugadors
-// Post: crea tants jugadors com njguadors amb totes les seves característiques
-function create() {
-	for (var i = 0; i <= njugadors; ++i) {
-		jugadors.push({pos: 0, mon: 600, jail: 0, 
-		missturns: 0, graus: new Array(), unis: new Array(), 
-		daus: new Array()});
-	}
-	var nHuman = njugadors - nCpu;
-	buy(nHuman, njugadors);
-	edificate(nHuman, njugadors);
-}
-
-
 // Pre: es un jugador viu, sabem si esta o no a la presó
 // Post: Tira els daus, mou el jugador i avisa si hi ha dobles
 function newpos (jugador){
@@ -191,6 +174,7 @@ function main(){
 	if (finish){
 		alert('El jugador ' + ActualPlayer + ' guanya!! Losers cry');
 	}
+	draw();
 	document.getElementById('but').innerHTML = '<input type=button onclick=main() value="Acceptar">';
 }
 
