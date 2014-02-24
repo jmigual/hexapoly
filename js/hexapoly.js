@@ -1,19 +1,15 @@
 
-
 var jugadors = new Array();
 
 // Pre: existeix un array de jugadors
 // Post: crea tants jugadors com njguadors amb totes les seves característiques
 function create() {
 	for (var i = 0; i <= njugadors; ++i) {
-		jugadors.push({pos: 0, mon: 600, jail: false, 
+		jugadors.push({pos: 0, mon: 600, jail: 0, 
 		missturns: 0, graus: new Array(), unis: new Array(), 
 		daus: new Array()});
 	}
 }
-
-
-
 
 
 // Pre: es un jugador viu, sabem si esta o no a la presó
@@ -22,21 +18,31 @@ function newpos (jugador){
 	d1 = Math.floor((Math.random()*6)+1);
 	d2 = Math.floor((Math.random()*6)+1);
 	daus = d1 + d2;
-	if (d1 == d2) dobles = true;
-	else dobles = false;
+	if (d1 == d2) dobles++;
+	else dobles = 0;
 
-	//Si estas a la presó i no treus dobles no et mous, si treus
-	if (!jugadors[jugador].jail || dobles){
-		jugadors[jugador].pos += daus;
-		jugadors[jugador].jail = false;
+	// al tercer doble se'n va a la preso
+	if (dobles == 3){
+		jugadors[jugador].jail == 3;
+		jugadors[jugador].pos = 10;
+	} else {
+
+		// Avança si no esta a la preso o treu dobles
+		if (jugadors[jugador].jail > 0){
+			if (dobles > 0){
+				jugadors[jugador].pos += daus;
+				jugadors[jugador].jail = 0;
+			}
+			else jugadors[jugador].jail--;
+		}
+		else jugadors[jugador].pos += daus;
+
+		//Mira si fa una volta 
+		if (jugadors[jugador].pos >= ncaselles){
+			jugadors[jugador].pos -= ncaselles;
+			jugadors[jugador].mon += 60;
+		}
 	}
-
-	//Mira si fa una volta 
-	if (jugadors[jugador].pos >= ncaselles){
-		jugadors[jugador].pos -= ncaselles;
-		jugadors[jugador].mon += 60;
-	}
-
 	// Actualitza posicio
 	refreshpos(jugador);
 }
@@ -141,7 +147,7 @@ function tipuscasella(jugador){
 	}
 	else if (tauler[casella].nom == 'Vés a la presó'){
 			jugadors[jugador].pos = 10;
-			jugadors[jugador].jail == true;
+			jugadors[jugador].jail == 3;
 			refreshpos(jugador);
 	}
 }
@@ -149,55 +155,16 @@ function tipuscasella(jugador){
 
 
 
-/************
-//Actualitzar els marcadors
-function refresh(){
-	for (var i = 1; i <= njugadors; ++i){
-		document.getElementById("Pos" + i).innerHTML = jugadors[i].pos;
-		document.getElementById("Mon" + i).innerHTML = Math.max (jugadors[i].mon.toFixed(2), 0);
-		var string;
-		string = '';
-		for (var j = 0; j < jugadors[i].graus.length; ++j){
-			string += jugadors[i].graus[j].lloc + '(' + jugadors[i].graus[j].lvl + '), ';
-		}
-		document.getElementById("Graus" + i).innerHTML = string;
-		string = '';
-		for (var j = 0; j < jugadors[i].unis.length; ++j){
-			string += jugadors[i].unis[j] + ', ';
-		}
-		document.getElementById("Unis" + i).innerHTML = string;
-		string = '';
-		for (var j = 0; j < jugadors[i].daus.length; ++j){
-			string += jugadors[i].daus[j] + ', ';
-		}
-		document.getElementById("Daus" + i).innerHTML = string;
-	}
-}*/
-
 //************
 //Funcio que retorna el torn seguent o 0 si s'ha acabat la partida
 function nexturn(ActualPlayer, dobles){
-	if (dobles && jugadors[ActualPlayer].mon >= 0) return ActualPlayer;
+	if (dobles > 0 && jugadors[ActualPlayer].mon >= 0) return ActualPlayer;
 	var next = (ActualPlayer)%njugadors + 1;
 	if (jugadors[next].mon < 0) next = nexturn(next, false);
 	if (next == ActualPlayer) finish = true;
 	return next;
 }
 
-/**************
-// Pre: partida acabada. Post: retorna jugador guanyador
-function winner(){
-	var guanyadors = 0;
-	var guanyador;
-	for (var i = 1; i <= njugadors; ++i) {
-		if (jugadors[i].mon >= 0) {
-			++guanyadors;
-			guanyador = i;
-		}
-	}
-	if (guanyadors == 1) return guanyador;
-	else return 'Arnau Canyadell';
-}*/
 
 //
 // codi principal
@@ -205,7 +172,7 @@ function winner(){
 var ActualPlayer;
 var iva;
 var daus; // int, valor suma dels dos daus tirats
-var dobles; // bool
+var dobles; // int, sincrementa quan es treuen dobles i a larribar a 3 vas a la preso
 var finish;
 
 function monopoly(){
@@ -216,14 +183,23 @@ function monopoly(){
 	iva = 21;
 	finish = false;
 	var a = setInterval(function(){
-		newpos(ActualPlayer);
-		//refresh();
-		tipuscasella(ActualPlayer);
-		edificar(ActualPlayer);
+		if (jugadors[ActualPlayer].missturns > 0){
+			jugadors[ActualPlayer].missturns--;
+		} else {
+			if (jugadors[jugador].jail > 0 && jugadors[ActualPlayer].mon >= 10
+				&& wantToGetOutOfJail[ActualPlayer]()){
+				incrementa(-10, ActualPlayer);
+				jugadors[ActualPlayer].jail == 0;
+			}
+			newpos(ActualPlayer);
+			//refresh();
+			tipuscasella(ActualPlayer);
+			edificar(ActualPlayer);
+		}
 		ActualPlayer = nexturn(ActualPlayer, dobles);
 		if (finish){
 			alert('El jugador ' + ActualPlayer + ' guanya!! Losers cry');
 			clearInterval(a);
 		}
-	}, 2000);
+	}, 1000);
 }
