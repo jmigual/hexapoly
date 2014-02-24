@@ -169,15 +169,43 @@ function nexturn(ActualPlayer, dobles){
 }
 
 
-//
-// codi principal
-//
+
+// Pre: hem començat la partida
+// Post: executa una ordre de joc, aquesta es una funcio important
+function main(){
+	document.getElementById('but').innerHTML = "";
+	if (jugadors[ActualPlayer].missturns > 0){
+		jugadors[ActualPlayer].missturns--;
+	} else {
+		if (jugadors[ActualPlayer].jail > 0 && jugadors[ActualPlayer].mon >= 10
+			&& wantToGetOutOfJail[ActualPlayer]()){
+			incrementa(-10, ActualPlayer);
+			jugadors[ActualPlayer].jail == 0;
+		}
+		newpos(ActualPlayer);
+		//refresh();
+		tipuscasella(ActualPlayer);
+		edificar(ActualPlayer);
+	}
+	ActualPlayer = nexturn(ActualPlayer, dobles);
+	if (finish){
+		alert('El jugador ' + ActualPlayer + ' guanya!! Losers cry');
+	}
+	document.getElementById('but').innerHTML = '<input type=button onclick=main() value="Acceptar">';
+}
+
+//************************************
+// Codi principal
+//************************************
 var ActualPlayer;
 var iva;
 var daus; // int, valor suma dels dos daus tirats
 var dobles; // int, sincrementa quan es treuen dobles i a larribar a 3 vas a la preso
 var finish;
 
+
+// Pre: sabem el nombre de jugadors i se'ns diu que podem començar el joc
+// Post: executa les funcions per crear dades i n'inicialitza d'altres
 function monopoly(){
 	//Cridem a la funció per crear els jugadors de la partida
 	create();
@@ -185,24 +213,5 @@ function monopoly(){
 	ActualPlayer = Math.floor((Math.random()*njugadors)+1);
 	iva = 21;
 	finish = false;
-	var a = setInterval(function(){
-		if (jugadors[ActualPlayer].missturns > 0){
-			jugadors[ActualPlayer].missturns--;
-		} else {
-			if (jugadors[ActualPlayer].jail > 0 && jugadors[ActualPlayer].mon >= 10
-				&& wantToGetOutOfJail[ActualPlayer]()){
-				incrementa(-10, ActualPlayer);
-				jugadors[ActualPlayer].jail == 0;
-			}
-			newpos(ActualPlayer);
-			//refresh();
-			tipuscasella(ActualPlayer);
-			edificar(ActualPlayer);
-		}
-		ActualPlayer = nexturn(ActualPlayer, dobles);
-		if (finish){
-			alert('El jugador ' + ActualPlayer + ' guanya!! Losers cry');
-			clearInterval(a);
-		}
-	}, 1000);
+	main();
 }

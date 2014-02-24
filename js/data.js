@@ -2,6 +2,9 @@
 var ncaselles = 48;
 var njugadors;
 var nCpu;
+var jugadors = new Array();
+
+
 
 // Pre: cert
 // Post: declara tauler
@@ -122,3 +125,17 @@ wantToGetOutOfJail[6] = function () { return false };
 // comerciar
 // a quina casella anar amb lavio
 // altres targetes amb decisio
+
+
+// Pre: existeix un array de jugadors i sabem 'njugadors'
+// Post: crea tants jugadors com njguadors amb totes les seves característiques
+function create() {
+	for (var i = 0; i <= njugadors; ++i) {
+		jugadors.push({pos: 0, mon: 600, jail: 0, 
+		missturns: 0, graus: new Array(), unis: new Array(), 
+		daus: new Array()});
+	}
+	var nHuman = njugadors - nCpu;
+	buy(nHuman, njugadors);
+	edificate(nHuman, njugadors);
+}
