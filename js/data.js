@@ -83,7 +83,6 @@ volsedificar[4] = function () { return true };
 volsedificar[5] = function () { return true };
 volsedificar[6] = function () { return true };
 
-
 // Funcions per les inteligencies artificials per comprar
 var volscomprar = new Array;
 volscomprar[1] = function () { return confirm('Vols comprar la casella ' + 
@@ -93,3 +92,18 @@ volscomprar[3] = function () { return true };
 volscomprar[4] = function () { return true };
 volscomprar[5] = function () { return true };
 volscomprar[6] = function () { return true };
+
+// Funcions per pagar per sortir de la preso
+var wantToGetOutOfJail = new Array;
+wantToGetOutOfJail[1] = function () { return confirm('Vols pagar 10 crèdits per sortir de la presó?'
+	+ 'Sinó pots esperar-te ' + jugadors[1].jail + ' turns o fins que treguis dobles.')};
+wantToGetOutOfJail[2] = function () { return false };
+wantToGetOutOfJail[3] = function () { return false };
+wantToGetOutOfJail[4] = function () { return false };
+wantToGetOutOfJail[5] = function () { return false };
+wantToGetOutOfJail[6] = function () { return false };
+
+// targeta sortir preso
+// comerciar
+// a quina casella anar amb lavio
+// altres targetes amb decisio
