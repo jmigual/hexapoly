@@ -74,25 +74,39 @@ tauler[47] = new Casella('grau',0,'Enginyeria interdisciplinària',400,40,400,80
 //**********
 // Intel.ligencies (artificials o no)
 
-// Funcions per les inteligencies per construir
+// Array per posar les inteligencies o els jugadors
 var volsedificar = new Array;
-volsedificar[1] = function (casella) { return confirm('Vols ampliar la casella ' + casella + 
-	' al nivell ' + (tauler[casella].level+1) + ' per ' + tauler[casella].preuedif + ' crèdits?') };
-volsedificar[2] = function () { return true };
-volsedificar[3] = function () { return true };
-volsedificar[4] = function () { return true };
-volsedificar[5] = function () { return true };
-volsedificar[6] = function () { return true };
+function edificate(nHuman, njugadors) {
+	var i = 1;
+	while (i <= nHuman) {
+		volsedificar[i] = function (casella) { 
+			return confirm('Vols ampliar la casella ' + casella + ' al nivell ' + 
+			(tauler[casella].level+1) + ' per ' + tauler[casella].preuedif + ' crèdits?');
+		};
+		++i;
+	}
+	while (i <= njugadors) {
+		volsedificar[i] = function() { return true };
+		++i;
+	}
+}
 
 // Funcions per les inteligencies artificials per comprar
 var volscomprar = new Array;
-volscomprar[1] = function () { return confirm('Vols comprar la casella ' + 
-	jugadors[1].pos + ' per ' + tauler[jugadors[1].pos].preu + ' crèdits?') };
-volscomprar[2] = function () { return true };
-volscomprar[3] = function () { return true };
-volscomprar[4] = function () { return true };
-volscomprar[5] = function () { return true };
-volscomprar[6] = function () { return true };
+
+function buy(nHuman, njugadors) {
+	var i = 1;
+	while (i <= nHuman) {
+		volsecomprar[i] = function () { return confirm('Vols comprar la casella ' + 
+			jugadors[1].pos + ' per ' + tauler[jugadors[1].pos].preu + ' crèdits?'); 
+		};
+		++i;
+	}
+	while (i <= njugadors) {
+		volscomprar[i] = function() { return true };
+		++i;
+	}
+}
 
 // Funcions per pagar per sortir de la preso
 var wantToGetOutOfJail = new Array;

@@ -9,6 +9,9 @@ function create() {
 		missturns: 0, graus: new Array(), unis: new Array(), 
 		daus: new Array()});
 	}
+	var nHuman = njugadors - nCpu;
+	buy(nHuman, njugadors);
+	edificate(nHuman, njugadors);
 }
 
 
@@ -186,7 +189,7 @@ function monopoly(){
 		if (jugadors[ActualPlayer].missturns > 0){
 			jugadors[ActualPlayer].missturns--;
 		} else {
-			if (jugadors[jugador].jail > 0 && jugadors[ActualPlayer].mon >= 10
+			if (jugadors[ActualPlayer].jail > 0 && jugadors[ActualPlayer].mon >= 10
 				&& wantToGetOutOfJail[ActualPlayer]()){
 				incrementa(-10, ActualPlayer);
 				jugadors[ActualPlayer].jail == 0;
