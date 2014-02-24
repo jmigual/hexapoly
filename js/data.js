@@ -1,6 +1,7 @@
 // Num. jugadors i caselles
 var ncaselles = 48;
 var njugadors;
+var nCpu;
 
 // Pre: cert
 // Post: declara tauler
