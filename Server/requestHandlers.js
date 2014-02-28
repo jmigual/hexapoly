@@ -8,7 +8,7 @@ function iniciar(response) {
 		response.end();
 	});
 }
-
+//Prova
 function pujar(response) {
 	console.log("Manipulador de petició 'pujar' ha estat cridat.");
 	response.writeHead(200, {"Content-Type": "text/html"});
