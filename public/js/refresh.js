@@ -1,9 +1,9 @@
 function refreshpos(jugador){
-	document.getElementById("Pos" + jugador).innerHTML = jugadors[jugador].pos;
+	$("#Pos" + jugador).text(jugadors[jugador].pos);
 }
 
 function refreshmon(jugador){
-	document.getElementById("Mon" + jugador).innerHTML = Math.max (jugadors[jugador].mon.toFixed(2), 0);
+	$("#Mon" + jugador).text(Math.max (jugadors[jugador].mon.toFixed(2), 0));
 }
 
 function refreshproperties(jugador){
@@ -11,17 +11,17 @@ function refreshproperties(jugador){
 	for (var j = 0; j < jugadors[jugador].graus.length; ++j){
 		string += jugadors[jugador].graus[j].lloc + '(' + jugadors[jugador].graus[j].lvl + '), ';
 	}
-	document.getElementById("Graus" + jugador).innerHTML = string;
+	$("#Graus" + jugador).text(string);
 	string = '';
 	for (var j = 0; j < jugadors[jugador].unis.length; ++j){
 		string += jugadors[jugador].unis[j] + ', ';
 	}
-	document.getElementById("Unis" + jugador).innerHTML = string;
+	$("#Unis" + jugador).text(string);
 	string = '';
 	for (var j = 0; j < jugadors[jugador].daus.length; ++j){
 		string += jugadors[jugador].daus[j] + ', ';
 	}
-	document.getElementById("Daus" + jugador).innerHTML = string;
+	$("#Daus" + jugador).text(string);
 }
 
 // Pre: cert
