@@ -49,11 +49,18 @@ h1 {
   #col1 {
     width: 60%;
     height: 100%;
+    float: left;
+  }
+  #col2 {
+    font-size: inherit;
   }
 }
 
 @media screen and (min-width: 700px) and (max-width: 1000px) and (orientation: landscape) {
-
+  #col1 {
+    width: 60%;
+    height: 100%;
+  }
 }
 
 @media screen and (min-width: 700px) and (max-width: 1000px) and (orientation: portrait) {

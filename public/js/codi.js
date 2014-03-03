@@ -37,9 +37,9 @@ function cpuNumber() {
  	    		txt += '</td>';
  	    	}
  	    	txt += '</tr></table>';
- 	    	document.getElementById('col2').innerHTML = txt;
+ 	    	$('#col2').html(txt);
  	    	alert = false;
- 	    	document.getElementById('col1').style.display = "block";
+ 	    	$('#col1').show();
  	    	monopoly();
 		}
 	}
