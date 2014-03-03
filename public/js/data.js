@@ -100,7 +100,7 @@ var volscomprar = new Array;
 function buy(nHuman, njugadors) {
 	var i = 1;
 	while (i <= nHuman) {
-		volsecomprar[i] = function () { return confirm('Vols comprar la casella ' + 
+		volscomprar[i] = function () { return confirm('Vols comprar la casella ' + 
 			jugadors[1].pos + ' per ' + tauler[jugadors[1].pos].preu + ' crèdits?'); 
 		};
 		++i;

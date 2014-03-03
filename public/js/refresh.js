@@ -11,16 +11,19 @@ function refreshproperties(jugador){
 	for (var j = 0; j < jugadors[jugador].graus.length; ++j){
 		string += jugadors[jugador].graus[j].lloc + '(' + jugadors[jugador].graus[j].lvl + '), ';
 	}
+	if (string == '') string = "Cap";
 	$("#Graus" + jugador).text(string);
 	string = '';
 	for (var j = 0; j < jugadors[jugador].unis.length; ++j){
 		string += jugadors[jugador].unis[j] + ', ';
 	}
+	if (string == '') string = "Cap";
 	$("#Unis" + jugador).text(string);
 	string = '';
 	for (var j = 0; j < jugadors[jugador].daus.length; ++j){
 		string += jugadors[jugador].daus[j] + ', ';
 	}
+	if (string == '') string = "Cap";
 	$("#Daus" + jugador).text(string);
 }
 

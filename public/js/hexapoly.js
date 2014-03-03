@@ -156,10 +156,11 @@ function nexturn(ActualPlayer, dobles){
 // Pre: hem començat la partida
 // Post: executa una ordre de joc, aquesta es una funcio important
 function main(){
-	document.getElementById('but').innerHTML = "";
+	$('#but').hide();
 	if (jugadors[ActualPlayer].missturns > 0){
 		jugadors[ActualPlayer].missturns--;
-	} else {
+	} 
+	else {
 		if (jugadors[ActualPlayer].jail > 0 && jugadors[ActualPlayer].mon >= 10
 			&& wantToGetOutOfJail[ActualPlayer]()){
 			incrementa(-10, ActualPlayer);
@@ -175,7 +176,7 @@ function main(){
 		alert('El jugador ' + ActualPlayer + ' guanya!! Losers cry');
 	}
 	draw();
-	document.getElementById('but').innerHTML = '<input type=button onclick=main() value="Acceptar">';
+	$('#but').show();
 }
 
 //************************************
@@ -183,7 +184,7 @@ function main(){
 //************************************
 var ActualPlayer;
 var iva;
-var daus; // int, valor suma dels dos daus tirats
+var daus; 	// int, valor suma dels dos daus tirats
 var dobles; // int, sincrementa quan es treuen dobles i a larribar a 3 vas a la preso
 var finish;
 
