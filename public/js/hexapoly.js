@@ -167,7 +167,6 @@ function main(){
 			jugadors[ActualPlayer].jail == 0;
 		}
 		newpos(ActualPlayer);
-		//refresh();
 		tipuscasella(ActualPlayer);
 		edificar(ActualPlayer);
 	}

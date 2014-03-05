@@ -66,6 +66,7 @@ function cpuNumber() {
  	    	$('#col2').html(txt);
  	    	alert = false;
  	    	$('#col1').show();
+ 	    	$('#pict').hide();
  	    	monopoly();
 		}
 	}
