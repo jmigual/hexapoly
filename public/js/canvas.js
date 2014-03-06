@@ -1,19 +1,19 @@
-function resizeCanvas() {
-	var canvas = document.getElementById('canv');
-	var size = $('#canvas_container').width();
-	if (size != canvas.width) {
-		canvas.width = size;
+function resizeCanvas(canvas, width, height) {
+	if (width != canvas.width) {
+		canvas.width = width;
 	}
-	size = $('#canvas_container').height();
-	if (size != canvas.height) {
-		canvas.height = size;
+	if (height != canvas.height) {
+		canvas.height = height;
 	}
 }
 
 function draw() {
-	resizeCanvas();
 	var canvas = document.getElementById('canv');
 	var ctx = canvas.getContext('2d');
+	width = $('#canvas_container').width();
+	height = $('#canvas_container').height();
+	console.log($('#canvas_container').width(), height);
+	resizeCanvas(canvas, width, height);
 	var tauler = document.getElementById('pict');
-	ctx.drawImage(pict, 0,0, canvas.width, canvas.height);
+	ctx.drawImage(pict, 0,0, width, height);
 }
