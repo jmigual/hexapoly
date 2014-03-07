@@ -173,9 +173,10 @@ function main(){
 	ActualPlayer = nexturn(ActualPlayer, dobles);
 	if (finish){
 		alert('El jugador ' + ActualPlayer + ' guanya!! Losers cry');
+		clearInterval(paint);
 	}
-	draw();
 	$('#but').show();
+	var paint = setInterval(draw(), 50);
 }
 
 //************************************

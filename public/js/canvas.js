@@ -7,7 +7,7 @@ function resizeCanvas(canvas, width, height) {
 	}
 }
 
-function draw() {
+var paint = setInterval(function draw() {
 	var canvas = document.getElementById('canv');
 	var ctx = canvas.getContext('2d');
 	width = $('#canvas_container').width();
@@ -16,4 +16,4 @@ function draw() {
 	resizeCanvas(canvas, width, height);
 	var tauler = document.getElementById('pict');
 	ctx.drawImage(pict, 0,0, width, height);
-}
+}, 1000/5);
