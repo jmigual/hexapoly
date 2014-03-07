@@ -176,7 +176,7 @@ function main(){
 		clearInterval(paint);
 	}
 	$('#but').show();
-	setTimeout(function() {draw()}, 1000);
+	draw();
 }
 
 //************************************

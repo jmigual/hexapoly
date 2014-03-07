@@ -28,7 +28,7 @@ function cpuNumber() {
 		if (number[i].checked) {
 			nCpu = parseInt(number[i].value);
 
-			txt = "Sou " + njugadors + " jugadors" + '<br><br><table class="tab"><tr>';
+			txt = "Sou " + njugadors + " jugadors" + '<br><br><table id="tab"><tr>';
 			//Si el nombre de jugadors es major que 3 escriurem dues files
 			if (njugadors > 3) {
 				for (var i = 1; i <= 3; ++i) {
