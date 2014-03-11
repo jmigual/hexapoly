@@ -176,6 +176,7 @@ function main(){
 		clearInterval(paint);
 	}
 	$('#but').show();
+	contDraw = true;
 	draw();
 }
 
